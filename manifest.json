@@ -1,0 +1,26 @@
+{
+  "name": "Anurag Dashore - Portfolio",
+  "short_name": "Anurag Dashore",
+  "description": "Portfolio of Anurag Dashore — Mechanical Engineer & Developer from Indore",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#ffffff",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "IMAGES/anuragdashore.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "IMAGES/anuragdashore.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

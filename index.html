@@ -1,0 +1,2505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Anurag Dashore">
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https:;">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+    <title>Anurag Dashore - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            color-scheme: light only;
+        }
+
+        /* Force Samsung Internet and other browsers to not apply dark mode */
+        @media (prefers-color-scheme: dark) {
+            html {
+                filter: none !important;
+            }
+            body:not(.light-theme) {
+                background-color: black !important;
+                color: white !important;
+            }
+            body.light-theme {
+                background-color: white !important;
+                color: black !important;
+                filter: none !important;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* ===== DARK MODE (DEFAULT) ===== */
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #e0e0e0;
+        }
+
+        /* ===== LIGHT MODE REVERSION ===== */
+        body.light-theme {
+            background-color: white;
+            color: black;
+        }
+
+        body.light-theme h1,
+        body.light-theme h2,
+        body.light-theme h3,
+        body.light-theme h4,
+        body.light-theme h5,
+        body.light-theme h6 {
+            color: #1024ad;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 30px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: all 0.4s ease;
+        }
+
+        nav.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        body.light-theme nav {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(16, 36, 173, 0.2);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #e0e0e0;
+        }
+
+        body.light-theme .navbar-brand {
+            color: #1024ad;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            color: white;
+        }
+
+        .nav-links a:hover {
+            color: #e0e0e0;
+        }
+
+        body.light-theme .nav-links a {
+            color: black;
+        }
+
+        body.light-theme .nav-links a:hover {
+            color: #1024ad;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+            }
+            .nav-links a {
+                font-size: 12px;
+            }
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 30px 60px 30px;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        body.light-theme .hero {
+            background: transparent;
+        }
+
+        /* Enhanced Parallax Layer Styles */
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom:0;
+            z-index: 1;
+            will-change: transform;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 0.4s ease-in-out;
+            opacity: 0.4; /* Soft opacity overlay for text contrast readability */
+        }
+
+        body.light-theme .parallax-bg {
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-switch-container {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        body.light-theme .hero-switch-container {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(1, 1, 1, 0.3);
+        }
+
+        .switch-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            user-select: none;
+            color: white;
+        }
+
+        body.light-theme .switch-label {
+            color: #101010;
+        }
+
+        .switch-track {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+            background-color: #525457;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        body.light-theme .switch-track {
+            background-color: #ad1024;
+        }
+
+        .switch-knob {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .switch-track.checked .switch-knob {
+            transform: translateX(22px);
+        }
+
+        .hero-image {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            object-fit: cover;
+            border: 4px solid #b0b3b8;
+            transition: border-color 0.3s ease;
+        }
+
+        body.light-theme .hero-image {
+            border-color: #1024ad;
+        }
+
+        .hero h1 {
+            font-size: 54px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            color: white;
+        }
+
+        body.light-theme .hero h1 {
+            color: #1024ad;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+            color: #ada6d7;
+        }
+
+        body.light-theme .hero p {
+            color: #270c2c ;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: #bfbfbf;
+            color: black;
+            border: 2px solid #bfbfbf;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: #800080;
+            color: white;
+            border: 2px solid #800080;
+            transform: translateY(-2px);
+        }
+
+        body.light-theme .btn-primary {
+            background: #1024ad;
+            border-color: #1024ad;
+            color: white;
+        }
+
+        body.light-theme .btn-primary:hover {
+            background: transparent;
+            color: #270c2c;
+            border-color: #270c2c;
+        }
+
+        body.light-theme .btn-secondary {
+            color: #270c2c;
+            border-color: #270c2c;
+            background: transparent;
+        }
+
+        body.light-theme .btn-secondary:hover {
+            background: #ad1024;
+            color: white;
+            border-color: #ad1024;
+            transform: translateY(-2px);
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* ===== TABS ===== */
+        .tabs-section {
+            padding: 25px 0;
+            position: sticky;
+            top: 55px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        body.light-theme .tabs-section {
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(16, 36, 173, 0.2);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            border: none;
+            background: transparent;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            color: white;
+            border: 1px solid transparent;
+        }
+
+        .tab-btn.active {
+            background: #800080;
+            color: white;
+            border: 1px solid #800080;
+        }
+
+        .tab-btn:hover {
+            border-color: #b0b3b8;
+        }
+
+        body.light-theme .tab-btn {
+            color: black;
+            border: 1px solid transparent;
+        }
+
+        body.light-theme .tab-btn.active {
+            background: #ad1024;
+            color: white;
+            border: 1px solid #ad1024;
+        }
+
+        body.light-theme .tab-btn:hover {
+            border-color: #1024ad;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            display: none;
+            padding: 60px 0 80px 0;
+            animation: fadeIn 0.5s ease;
+            scroll-margin-top: 140px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 50px;
+            letter-spacing: -1px;
+            color: white;
+            border-bottom: 2px solid #b0b3b8;
+            padding-bottom: 20px;
+        }
+
+        body.light-theme .section-title {
+            color: #1024ad;
+            border-bottom: 2px solid #1024ad;
+        }
+
+        .projects-note {
+            font-size: 13px;
+            font-style: italic;
+            color: #b0b3b8;
+            margin-top: -35px;
+            margin-bottom: 30px;
+        }
+
+        body.light-theme .projects-note {
+            color: #555;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        body.light-theme .about-text h3 {
+            color: #1024ad;
+            border-bottom: 1px solid rgba(16, 36, 173, 0.15);
+        }
+
+        .about-text p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: white;
+        }
+
+        body.light-theme .about-text p {
+            color: black;
+        }
+
+        .about-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .about-list li {
+            font-size: 16px;
+            margin-bottom: 12px;
+            line-height: 1.8;
+            color: white;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .about-list li::before {
+            content: "•";
+            color: #800080;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        body.light-theme .about-list li {
+            color: black;
+        }
+
+        body.light-theme .about-list li::before {
+            color: #1024ad;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+            margin-bottom: 35px;
+        }
+
+        .skill-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #b0b3b8;
+            transition: all 0.3s ease;
+            color: #b0b3b8;
+            background: rgba(176, 179, 184, 0.1);
+        }
+
+        .skill-badge:hover {
+            background: #b0b3b8;
+            color: black;
+            transform: translateY(-2px);
+        }
+
+        body.light-theme .skill-badge {
+            color: #1024ad;
+            border-color: #1024ad;
+            background: rgba(16, 36, 173, 0.05);
+        }
+
+        body.light-theme .skill-badge:hover {
+            background: #1024ad;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #b0b3b8;
+            object-fit: cover;
+            transition: border-color 0.3s ease;
+        }
+
+        body.light-theme .about-image img {
+            border-color: #1024ad;
+        }
+
+        /* ===== MOBILE REDESIGN (max-width: 768px) ===== */
+        @media (max-width: 768px) {
+
+            /* --- NAVBAR --- */
+            .nav-links {
+                gap: 10px;
+            }
+            .nav-links a {
+                font-size: 11px;
+                letter-spacing: 0.5px;
+            }
+
+            /* --- HERO --- */
+            .hero {
+                padding: 70px 20px 50px 20px;
+                min-height: 90vh;
+            }
+            .hero h1 {
+                font-size: 36px;
+                letter-spacing: 0px;
+            }
+            .hero p {
+                font-size: 15px;
+            }
+            .hero-image {
+                width: 110px;
+                height: 110px;
+            }
+            .hero-switch-container {
+                top: 15px;
+                right: 15px;
+                padding: 6px 10px;
+            }
+            .switch-label {
+                font-size: 10px;
+            }
+
+            /* --- TABS: single row, scrollable --- */
+            .tabs-section {
+                padding: 12px 0;
+                top: 0;
+            }
+            .tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                gap: 8px;
+                padding: 0 16px;
+                scrollbar-width: none;
+            }
+            .tabs::-webkit-scrollbar {
+                display: none;
+            }
+            .tab-btn {
+                padding: 8px 16px;
+                font-size: 11px;
+                letter-spacing: 1px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            /* --- MAIN PADDING --- */
+            main {
+                padding: 0 16px;
+            }
+
+            /* --- SECTION --- */
+            .section {
+                padding: 40px 0 60px 0;
+                scroll-margin-top: 100px;
+            }
+            .section-title {
+                font-size: 26px;
+                margin-bottom: 30px;
+            }
+
+            /* --- ABOUT: stack with photo on top, centered --- */
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .about-image {
+                order: -1;
+            }
+            .about-image img {
+                width: 130px;
+                height: 130px;
+            }
+            .about-text h3 {
+                font-size: 18px;
+            }
+            .about-text p, .about-list li {
+                font-size: 15px;
+            }
+
+            /* --- SKILL BADGES: tighter wrap --- */
+            .skills-container {
+                gap: 8px;
+                margin-top: 20px;
+                margin-bottom: 25px;
+            }
+            .skill-badge {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            /* --- EDUCATION TIMELINE --- */
+            .timeline {
+                padding-left: 28px;
+            }
+            .timeline-item::before {
+                left: -34px;
+            }
+            .timeline-item:hover::before {
+                left: -40px;
+            }
+            .timeline-title {
+                font-size: 17px;
+            }
+
+            /* --- PROJECTS GRID: single column --- */
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .filter-buttons {
+                gap: 8px;
+                margin-bottom: 24px;
+            }
+            .filter-btn {
+                padding: 6px 14px;
+                font-size: 11px;
+            }
+            .project-image {
+                height: 160px;
+            }
+            .project-content {
+                padding: 16px;
+            }
+            .project-title {
+                font-size: 16px;
+            }
+
+            /* --- GALLERY: single column --- */
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            /* --- LINKS GRID: 2 columns --- */
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .link-tile {
+                padding: 24px 12px;
+            }
+            .tile-logo svg {
+                width: 32px;
+                height: 32px;
+            }
+            .tile-label-text {
+                font-size: 13px;
+            }
+            .tile-subtext {
+                font-size: 11px;
+            }
+
+            /* --- FOOTER --- */
+            .footer-container {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            .footer-links {
+                gap: 16px;
+                justify-content: center;
+            }
+        }
+
+        /* ===== EDUCATION SECTION ===== */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #800080, transparent);
+        }
+
+        body.light-theme .timeline::before {
+            background: linear-gradient(180deg, #1024ad, transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -46px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            background: #800080;
+            border-radius: 50%;
+            border: 3px solid black;
+            transition: all 0.3s ease;
+        }
+
+        body.light-theme .timeline-item::before {
+            border-color: white;
+            background: #1024ad;
+        }
+
+        .timeline-item:hover::before {
+            width: 24px;
+            height: 24px;
+            left: -52px;
+            top: 2px;
+        }
+
+        .timeline-year {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        body.light-theme .timeline-year {
+            color: #1024ad;
+        }
+
+        .timeline-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #bfbfbf;
+        }
+
+        body.light-theme .timeline-title {
+            color: #1024ad;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            color: white;
+        }
+
+        body.light-theme .timeline-desc {
+            color: black;
+        }
+
+        /* ===== PROJECTS SECTION ===== */
+        .filter-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 1px solid transparent;
+            background: transparent;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            color: white;
+            border-color: white;
+        }
+
+        .filter-btn.active {
+            background: #b0b3b8;
+            color: black;
+            border-color: #b0b3b8;
+        }
+
+        .filter-btn:hover {
+            background: #b0b3b8;
+            color: black;
+        }
+
+        body.light-theme .filter-btn {
+            color: #1024ad;
+            border-color: #1024ad;
+        }
+
+        body.light-theme .filter-btn.active {
+            background: #1024ad;
+            color: white;
+        }
+
+        body.light-theme .filter-btn:hover {
+            background: #1024ad;
+            color: white;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* ===== HORIZONTAL SCROLLING GROUPS ===== */
+        .project-group {
+            margin-bottom: 50px;
+        }
+
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        body.light-theme .group-header {
+            border-bottom-color: rgba(16, 36, 173, 0.1);
+        }
+
+        .group-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #e0e0e0;
+            letter-spacing: 0.5px;
+        }
+
+        body.light-theme .group-title {
+            color: #1024ad;
+        }
+
+        .view-all-btn {
+            background: transparent;
+            border: 1px solid #800080;
+            color: #800080;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:hover {
+            background: #800080;
+            color: white;
+        }
+
+        body.light-theme .view-all-btn {
+            border-color: #1024ad;
+            color: #1024ad;
+        }
+
+        body.light-theme .view-all-btn:hover {
+            background: #1024ad;
+            color: white;
+        }
+
+        .projects-scroll-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 5px;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(128, 0, 128, 0.5) transparent;
+        }
+
+        .projects-scroll-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .projects-scroll-container::-webkit-scrollbar-thumb {
+            background-color: rgba(128, 0, 128, 0.3);
+            border-radius: 10px;
+        }
+
+        body.light-theme .projects-scroll-container::-webkit-scrollbar-thumb {
+            background-color: rgba(16, 36, 173, 0.3);
+        }
+
+        .projects-scroll-container .project-card {
+            flex: 0 0 320px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .projects-scroll-container .project-card {
+                flex: 0 0 280px;
+            }
+        }
+
+        /* Expanded Grid Mode */
+        .project-group.expanded .projects-scroll-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            overflow-x: visible;
+        }
+
+        .project-group.expanded .projects-scroll-container .project-card {
+            flex: none;
+        }
+
+        .project-card {
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: slideIn 0.5s ease;
+            background: black;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: #b0b3b8;
+        }
+
+        body.light-theme .project-card {
+            background: white;
+            border: 1px solid rgba(16, 36, 173, 0.15);
+        }
+
+        body.light-theme .project-card:hover {
+            border-color: #1024ad;
+            transform: translateY(-8px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #b0b3b8, white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        body.light-theme .project-image {
+            background: linear-gradient(135deg, #1024ad, #ad1024);
+        }
+
+        .project-content {
+            padding: 24px;
+        }
+
+        .project-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+            color: #800080;
+        }
+
+        body.light-theme .project-label {
+            color: #1024ad;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        body.light-theme .project-title {
+            color: #1024ad;
+        }
+
+        .project-details {
+            margin-bottom: 16px;
+        }
+
+        .project-summary {
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            user-select: none;
+            color: #b0b3b8;
+        }
+
+        body.light-theme .project-summary { color: #1024ad; }
+
+        .project-summary::after {
+            content: "▼ Click to view details";
+            font-size: 12px;
+            opacity: 0.8;
+            transition: transform 0.2s;
+        }
+
+        .project-details[open] .project-summary::after {
+            content: "▲ Click to close";
+        }
+
+        .project-desc {
+            font-size: 14px;
+            margin-top: 10px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            color: white;
+        }
+
+        body.light-theme .project-desc {
+            color: black;
+        }
+
+        .source-btn-container {
+            margin-top: 15px;
+            display: flex;
+        }
+
+        .btn-source {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 18px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background-color: #800080;
+            color: white;
+            border: 1px solid #800080;
+        }
+        .btn-source:hover {
+            background-color: transparent;
+            color: #800080;
+        }
+
+        body.light-theme .btn-source {
+            background-color: #1024ad;
+            color: white;
+            border: 1px solid #1024ad;
+        }
+        body.light-theme .btn-source:hover {
+            background-color: transparent;
+            color: #1024ad;
+            border-color: #1024ad;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            background: rgba(176, 179, 184, 0.1);
+            color: #b0b3b8;
+            border: 1px solid #b0b3b8;
+        }
+
+        body.light-theme .tech-tag {
+            background: rgba(16, 36, 173, 0.05);
+            color: #1024ad;
+            border: 1px solid #1024ad;
+        }
+
+        /* Roomier tag spacing — modal only, cards unaffected */
+        .project-modal-info .project-tech {
+            gap: 10px;
+            row-gap: 12px;
+        }
+
+        .project-modal-info .tech-tag {
+            padding: 6px 14px;
+        }
+
+        .project-card.hidden {
+            display: none;
+        }
+
+        /* ===== GALLERY SECTION ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gallery-item:hover {
+            border-color: #b0b3b8;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        body.light-theme .gallery-item {
+            border: 1px solid rgba(16, 36, 173, 0.15);
+        }
+        body.light-theme .gallery-item:hover {
+            border-color: #1024ad;
+        }
+
+        /* ===== PROJECT DETAIL MODAL ===== */
+        .project-modal-content {
+            background: black;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        #projectModal.active .project-modal-content {
+            transform: scale(1);
+        }
+
+        body.light-theme .project-modal-content {
+            background: white;
+            border: 1px solid rgba(16, 36, 173, 0.15);
+        }
+
+        /* Modern slim scrollbar for the modal */
+        .project-modal-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(176, 179, 184, 0.5) transparent;
+        }
+
+        .project-modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .project-modal-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .project-modal-content::-webkit-scrollbar-thumb {
+            background-color: rgba(176, 179, 184, 0.5);
+            border-radius: 10px;
+        }
+
+        .project-modal-content::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(176, 179, 184, 0.8);
+        }
+
+        body.light-theme .project-modal-content {
+            scrollbar-color: rgba(16, 36, 173, 0.35) transparent;
+        }
+
+        body.light-theme .project-modal-content::-webkit-scrollbar-thumb {
+            background-color: rgba(16, 36, 173, 0.35);
+        }
+
+        body.light-theme .project-modal-content::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(16, 36, 173, 0.6);
+        }
+
+        .project-modal-img {
+            display: block;
+            width: 100%;
+            max-height: 50vh;
+            object-fit: contain;
+            background: #000;
+        }
+
+        body.light-theme .project-modal-img {
+            background: #f2f2f2;
+        }
+
+        .project-modal-info {
+            padding: 24px;
+        }
+
+        .project-modal-info .project-desc {
+            white-space: normal;
+        }
+
+        .project-image { cursor: pointer; }
+
+        /* ===== LIGHTBOX MODAL ===== */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 4px;
+            transform: scale(0.95);
+            transition: transform 0.3s ease, opacity 0.18s ease;
+        }
+
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            color: #b0b3b8;
+            transform: scale(1.1);
+        }
+
+        body.light-theme .lightbox-close:hover {
+            color: #1024ad;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 40px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        /* Lightbox navigation arrows */
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: white;
+            font-size: 32px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.25;
+            transition: opacity 0.25s ease, background 0.25s ease, transform 0.25s ease;
+            z-index: 10000;
+            user-select: none;
+        }
+
+        .lightbox-arrow:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Slightly smaller on mobile but still visible */
+        @media (max-width: 768px) {
+            .lightbox-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+                opacity: 0.35;
+            }
+            .lightbox-arrow-left { left: 10px; }
+            .lightbox-arrow-right { right: 10px; }
+        }
+
+        .lightbox-arrow-left { left: 24px; }
+        .lightbox-arrow-right { right: 24px; }
+
+        /* Swipe hint */
+        .lightbox-swipe-hint {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.55);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+            white-space: nowrap;
+        }
+
+        /* Only show swipe hint on mobile */
+        @media (min-width: 769px) {
+            .lightbox-swipe-hint { display: none; }
+        }
+
+        /* Counter indicator */
+        .lightbox-counter {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* ===== LINKS SECTION ===== */
+        .links-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .search-container {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .search-input:focus {
+            border-color: #b0b3b8;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        body.light-theme .search-input {
+            background: rgba(16, 36, 173, 0.03);
+            border: 1px solid rgba(16, 36, 173, 0.2);
+            color: black;
+        }
+        body.light-theme .search-input:focus {
+            border-color: #1024ad;
+            background: white;
+        }
+        body.light-theme .search-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            list-style: none;
+        }
+
+        .link-tile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 35px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .tile-logo {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .tile-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .link-tile:hover .tile-logo {
+            transform: scale(1.15);
+        }
+
+        .tile-label-text {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .tile-subtext {
+            font-size: 12px;
+            opacity: 0.6;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .link-tile .tile-logo svg { 
+            fill: white; 
+            transition: fill 0.3s ease;
+        }
+        
+        .link-tile:hover {
+            background: rgba(176, 179, 184, 0.05);
+            border-color: #800080;
+            transform: translateY(-5px);
+            color: #800080;
+        }
+        
+        .link-tile:hover .tile-logo svg {
+            fill: #800080;
+        }
+
+        body.light-theme .link-tile {
+            background: rgba(16, 36, 173, 0.02);
+            border: 1px solid rgba(16, 36, 173, 0.15);
+            color: black;
+        }
+
+        body.light-theme .link-tile .tile-logo svg { 
+            fill: #000000; 
+        }
+
+        body.light-theme .link-tile:hover {
+            background: rgba(16, 36, 173, 0.04);
+            border-color: #1024ad;
+            transform: translateY(-5px);
+            color: #1024ad;
+        }
+
+        body.light-theme .link-tile:hover .tile-label-text { 
+            color: #1024ad; 
+        }
+
+        body.light-theme .link-tile:hover .tile-logo svg { 
+            fill: #1024ad; 
+        }
+
+        .link-tile.hidden-link { display: none !important; }
+
+        .no-results-msg {
+            text-align: center;
+            padding: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.7;
+            display: none;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 40px 30px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            background: black;
+        }
+
+        body.light-theme footer {
+            background: white;
+            border-top-color: rgba(16, 36, 173, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-brand {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #800080;
+        }
+
+        body.light-theme .footer-brand { color: #1024ad; }
+
+        .footer-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            color: white;
+        }
+
+        .footer-links a:hover { 
+            color: #800080; 
+        }
+
+        body.light-theme .footer-links a { color: black; }
+        
+        body.light-theme .footer-links a:hover { 
+            color: #ad1024; 
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: white;
+        }
+
+        body.light-theme .footer-bottom { color: black; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .section-title { font-size: 28px; }
+            .about-image img { width: 150px; height: 150px; }
+            .projects-grid, .gallery-grid { grid-template-columns: 1fr; }
+            .footer-container { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; flex-wrap: wrap; }
+            .links-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; }
+            .link-tile { padding: 25px 15px; }
+            .lightbox-close { top: 15px; right: 25px; font-size: 35px; }
+            .hero-switch-container { top: 15px; right: 15px; padding: 6px 10px; }
+            .tabs-section { top: 50px; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">ANURAG DASHORE</div>
+            <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-switch-container">
+            <span class="switch-label" id="switchLabelText">Night Mode</span>
+            <div class="switch-track" id="heroSwitchTrack" onclick="toggleTheme()">
+                <div class="switch-knob"></div>
+            </div>
+        </div>
+
+        <div class="parallax-bg" id="parallaxBg"></div>
+        <div class="hero-content">
+            <img src="https://raw.githubusercontent.com/ANURAG-DASHORE/ANURAG-DASHORE.github.io/main/IMAGES/WEBP-IMAGES/anuragdashore.webp" alt="Anurag Dashore" class="hero-image">
+            <h1>ANURAG DASHORE</h1>
+            <p><strong>Institute of Engineering and Technology DAVV, Indore (MP)</strong><br>B.E MECHANICAL ENGINEERING <br> (4<sup>th</sup> YEAR STUDENT)</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToTab('projects')">View Work</button>
+                <button class="btn btn-secondary" onclick="scrollToTab('about')">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="tabs-section">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="about" onclick="switchTab('about')">ABOUT</button>
+            <button class="tab-btn" data-tab="education" onclick="switchTab('education')">EDUCATION</button>
+            <button class="tab-btn" data-tab="projects" onclick="switchTab('projects')">PROJECTS</button>
+            <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery')">GALLERY</button>
+            <button class="tab-btn" data-tab="links" onclick="switchTab('links')">LINKS</button>
+        </div>
+    </div>
+
+    <main>
+        <section class="section active" id="about">
+            <h2 class="section-title">ABOUT ME</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Professional Bio</h3>
+                    <p>I am a Mechanical Engineering student from IET-DAVV, Indore, MP. I like to code and explore tech to enhance my experience & skillset, and make new things from my learning to expand my horizons.
+                    <br><br>
+                    <strong>My Key Projects &amp; Experience:</strong><br>
+                    <ul>
+                    <li><strong>Final Year Project:</strong> Worked with my team on the <em>Improvement of Assembly Line Efficiency &amp; Material Handling</em> under the guidance of Dr. Devendra Singh Verma at IET-DAVV.</li>
+                    <li><strong>AI Workshop:</strong> Attended a specialized Artificial Intelligence workshop organized by Fluxus, IIT Indore, to bridge the gap between core engineering and smart software.</li>
+                    <li><strong>Hackathon:</strong> Participated in a safety-focused helmet design hackathon under the BIS (Bureau of Indian Standards) Club of IET-DAVV.</li>
+                </ul>
+                    <br><br>
+                    I appreciate you following along on my journey. If you are looking for a team member or have a role to recommend, I am ready to participate. Feel free to reach me!
+                    <br><br>
+                    — <strong>Anurag Dashore</strong>
+                    </p>
+                    
+                    <div class="skills-container">
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">AI | ML</span>
+                        <span class="skill-badge">MYSQL | SQL</span>
+                        <span class="skill-badge">C | C++</span>
+                        <span class="skill-badge">Pandas</span>
+                        <span class="skill-badge">Matplotlib</span>
+                        <span class="skill-badge">Information Practices | IP</span>
+                        <span class="skill-badge">Object Oriented Programming | OOPs</span>
+                        <span class="skill-badge">Project Management</span>
+                        <span class="skill-badge">GitHub</span>
+                    </div>
+
+                    <h3>Academic Degree</h3>
+                    <ul class="about-list">
+                        <li><strong>Bachelor of Engineering (B.E.) in Mechanical Engineering</strong><br>Institute of Engineering and Technology<br>, Devi Ahilya Vishwavidyalaya Indore, MP (IET DAVV)<br><strong>Session :</strong> 2022-26 [ 4<sup>th</sup> Year Student ( Current ) ]</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                   <img src="https://raw.githubusercontent.com/ANURAG-DASHORE/ANURAG-DASHORE.github.io/main/IMAGES/WEBP-IMAGES/anuragdashore.webp" alt="Anurag Dashore">
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="education">
+            <h2 class="section-title">EDUCATION</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2022 — PRESENT</div>
+                    <div class="timeline-title">B.E in Mechanical Engineering</div>
+                    <div class="timeline-desc">IET DAVV, Indore, MP - Institute of Engineering and Technology</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Aug 2023</div>
+                    <div class="timeline-title">Safety Helmet Design Hackathon</div>
+                    <div class="timeline-desc">BIS Club, IET-DAVV - Product Innovation</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Nov 2022</div>
+                    <div class="timeline-title">AI | ML Workshop</div>
+                    <div class="timeline-desc">Fluxus, IIT Indore - Advanced AI Applications</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2021</div>
+                    <div class="timeline-title">Higher Secondary School (Class XII)</div>
+                    <div class="timeline-desc">Score: 83% - PCM-IP [Science-Maths, Information Practices] Stream -(CBSE BOARD)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-title">High School (Class X)</div>
+                    <div class="timeline-desc">Score: 73% -(CBSE BOARD)</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <p class="projects-note"><strong>Note:- click image on cards to see more info</strong></p>
+            <h2 class="section-title">FEATURED PROJECTS</h2>
+
+            <div class="search-container" style="margin-bottom: 25px;">
+                <input type="text" id="projectSearch" class="search-input" placeholder="Search projects by title, description, or tech stack..." onkeyup="searchProjects()">
+            </div>
+
+            <div class="filter-buttons" id="filterButtonsContainer" style="margin-bottom: 40px;">
+                <button class="filter-btn active" data-filter="all" onclick="filterProjects('all', this)">ALL</button>
+            </div>
+
+            <div id="projectsContainer"></div>
+
+            <div id="noProjectsFound" class="no-results-msg" style="display:none">No projects match your current search criteria.</div>
+        </section>
+
+        <div id="projectModal" class="lightbox-modal" onclick="closeProjectModal(event)">
+            <span class="lightbox-close" onclick="closeProjectModal(event)">&times;</span>
+            <div class="project-modal-content" onclick="event.stopPropagation()">
+                <img id="projectModalImg" class="project-modal-img" alt="">
+                <div class="project-modal-info">
+                    <span class="project-label" id="projectModalLabel"></span>
+                    <h3 class="project-title" id="projectModalTitle"></h3>
+                    <div class="project-desc" id="projectModalDesc"></div>
+                    <div class="project-tech" id="projectModalTags"></div>
+                    <div class="source-btn-container">
+                        <a id="projectModalSource" href="#" target="_blank" class="btn-source">Source</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="section" id="gallery">
+            <h2 class="section-title">GALLERY</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://raw.githubusercontent.com/ANURAG-DASHORE/ANURAG-DASHORE.github.io/main/IMAGES/WEBP-IMAGES/FINAAL_YEAR_PROJECT.webp" alt="Assembly Project Visual">
+                    <div class="gallery-caption">Assembly Line Study Setup</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://raw.githubusercontent.com/ANURAG-DASHORE/ANURAG-DASHORE.github.io/main/Documents/CERTIFICATES/IIT_INDORE-FLUXUS/AI-WORKSHOP_IIT_FLUXUS.webp" alt="IIT-Indore Artificial Intelligence Workshop">
+                    <div class="gallery-caption">IIT-Indore Artificial Intelligence Workshop Certificate</div>
+                </div>
+            </div>
+        </section>
+
+        <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox()">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <div class="lightbox-counter" id="lightboxCounter"></div>
+            <button class="lightbox-arrow lightbox-arrow-left" onclick="event.stopPropagation(); navigateLightbox(-1)">&#8249;</button>
+            <img class="lightbox-content" id="lightboxImg" alt="Fullscreen View">
+            <button class="lightbox-arrow lightbox-arrow-right" onclick="event.stopPropagation(); navigateLightbox(1)">&#8250;</button>
+            <div class="lightbox-swipe-hint" id="lightboxSwipeHint">← Swipe to navigate →</div>
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+
+        <section class="section" id="links">
+            <h2 class="section-title">PROFESSIONAL LINKS</h2>
+            
+            <div class="links-wrapper">
+                <div class="search-container">
+                    <input type="text" id="platformSearch" class="search-input" placeholder="Type platform name to filter (e.g., LinkedIn, GitHub, Email, Resume)..." onkeyup="searchPlatforms()">
+                </div>
+
+                <div class="links-grid" id="linksDashboardList">
+                    <a href="https://devpost.com/anuragdashore1024" target="_blank" class="link-tile" data-platform="Devpost">
+                        <div class="tile-logo">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Devpost</title><path d="M6.002 1.61L0 12.004 6.002 22.39h11.996L24 12.004 17.998 1.61zm1.593 4.084h3.947c3.605 0 6.276 1.695 6.276 6.31 0 4.436-3.21 6.302-6.456 6.302H7.595zm2.517 2.449v7.714h1.241c2.646 0 3.862-1.55 3.862-3.861.009-2.569-1.096-3.853-3.767-3.853Z"/></svg>
+                        </div>
+                        <span class="tile-label-text">Devpost</span>
+                        <span class="tile-subtext">Hackathon & Projects</span>
+                    </a>
+
+                    <a href="mailto:anuragdashore1024@gmail.com" class="link-tile" data-platform="email mail envelope inbox outlook gmail google mail">
+                        <div class="tile-logo">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </div>
+                        <span class="tile-label-text">Email</span>
+                        <span class="tile-subtext">Direct Email Communications</span>
+                    </a>                    
+
+                    <a href="https://github.com/ANURAG-DASHORE" target="_blank" class="link-tile" data-platform="github">
+                        <div class="tile-logo">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                        </div>
+                        <span class="tile-label-text">GitHub</span>
+                        <span class="tile-subtext">Repositories & Source Code</span>
+                    </a>
+
+                    <a href="https://gitlab.com/anuragdashore1024" target="_blank" class="link-tile" data-platform="GitLab">
+                        <div class="tile-logo">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitLab</title><path d="m23.6004 9.5927-.0337-.0862L20.3.9814a.851.851 0 0 0-.3362-.405.8748.8748 0 0 0-.9997.0539.8748.8748 0 0 0-.29.4399l-2.2055 6.748H7.5375l-2.2057-6.748a.8573.8573 0 0 0-.29-.4412.8748.8748 0 0 0-.9997-.0537.8585.8585 0 0 0-.3362.4049L.4332 9.5015l-.0325.0862a6.0657 6.0657 0 0 0 2.0119 7.0105l.0113.0087.03.0213 4.976 3.7264 2.462 1.8633 1.4995 1.1321a1.0085 1.0085 0 0 0 1.2197 0l1.4995-1.1321 2.4619-1.8633 5.006-3.7489.0125-.01a6.0682 6.0682 0 0 0 2.0094-7.003z"/></svg>
+                        </div>
+                        <span class="tile-label-text">Gitlab</span>
+                        <span class="tile-subtext">Code & Contributions</span>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/anurag-dashore" target="_blank" class="link-tile" data-platform="linkedin">
+                        <div class="tile-logo">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </div>
+                        <span class="tile-label-text">LinkedIn</span>
+                        <span class="tile-subtext">Professional Network & Connections</span>
+                    </a>
+
+                    <a href="https://raw.githubusercontent.com/ANURAG-DASHORE/ANURAG-DASHORE.github.io/main/Documents/RESUME/Anurag_Dashore.pdf" target="_blank" class="link-tile" data-platform="resume pdf download cv adobe acrobat document">
+                        <div class="tile-logo">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 0H2a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V10l-10-10zM12 3.5L18.5 10H12V3.5zM4 6h6v2H4V6zm0 5h14v2H4v-2zm0 5h14v2H4v-2z"/></svg>
+                        </div>
+                        <span class="tile-label-text">Resume</span>
+                        <span class="tile-subtext">Download CV</span>
+                    </a>
+
+                    <a href="https://www.youtube.com/@Anurag_Dashore" target="_blank" class="link-tile" data-platform="YouTube">
+                        <div class="tile-logo">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>YouTube</title><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </div>
+                        <span class="tile-label-text">YouTube</span>
+                        <span class="tile-subtext">Project Demos </span>
+                    </a>
+                    
+                    
+                </div>
+
+                <div id="noLinksFound" class="no-results-msg" style="display:none">No brand platforms match your current search context.</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">ANURAG DASHORE</div>
+            <ul class="footer-links">
+                <li><a href="https://github.com/ANURAG-DASHORE" target="_blank">GITHUB</a></li>
+                <li><a href="https://www.linkedin.com/in/anurag-dashore" target="_blank">LINKEDIN</a></li>
+                <li><a href="mailto:anuragdashore1024@gmail.com">EMAIL</a></li>
+                <li><a href="https://raw.githubusercontent.com/ANURAG-DASHORE/ANURAG-DASHORE.github.io/main/Documents/RESUME/Anurag_Dashore.pdf" target="_blank">RESUME</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Anurag Dashore. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="INTERNAL_LOGIC/projects.js"></script>
+    <script>
+        // ===== SERVICE WORKER REGISTRATION (PWA) =====
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(() => {});
+            });
+        }
+
+        // ===== PARALLAX EFFECT =====
+        window.addEventListener('scroll', () => {
+            const parallaxBg = document.getElementById('parallaxBg');
+            const scrollY = window.scrollY;
+            
+            if (parallaxBg) {
+                parallaxBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+            }
+        });
+
+        // ===== THEME TOGGLE ENGINE =====
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            updateThemeUI();
+        }
+
+        function updateThemeUI() {
+            const themeBtn = document.getElementById('themeBtn');
+            const heroSwitchTrack = document.getElementById('heroSwitchTrack');
+            const switchLabelText = document.getElementById('switchLabelText');
+            const parallaxBg = document.getElementById('parallaxBg');
+            
+            const darkBgImage = "url('https://raw.githubusercontent.com/ANURAG-DASHORE/ANURAG-DASHORE.github.io/main/IMAGES/BACKGROUNDS/dark_mode_background.png')"; 
+            const lightBgImage = "url('https://raw.githubusercontent.com/ANURAG-DASHORE/ANURAG-DASHORE.github.io/main/IMAGES/BACKGROUNDS/light_mode_background.png')";
+
+            if (document.body.classList.contains('light-theme')) {
+                if(themeBtn) themeBtn.textContent = '☀️';
+                if(heroSwitchTrack) heroSwitchTrack.classList.add('checked');
+                if(switchLabelText) switchLabelText.textContent = 'Light Mode';
+                if(parallaxBg) parallaxBg.style.backgroundImage = lightBgImage;
+                
+                localStorage.setItem('theme', 'light');
+            } else {
+                if(themeBtn) themeBtn.textContent = '🌙';
+                if(heroSwitchTrack) heroSwitchTrack.classList.remove('checked');
+                if(switchLabelText) switchLabelText.textContent = 'Night Mode';
+                if(parallaxBg) parallaxBg.style.backgroundImage = darkBgImage;
+                
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+            }
+            updateThemeUI();
+        });
+
+        // ===== NAVBAR SHOW/HIDE =====
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 150) {
+                navbar.classList.add('visible');
+            } else {
+                navbar.classList.remove('visible');
+            }
+        });
+
+        // ===== TAB SWITCHING =====
+        function switchTab(tabName) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            const targetSection = document.getElementById(tabName);
+            const targetBtn = document.querySelector(`[data-tab="${tabName}"]`);
+            
+            if (targetSection) targetSection.classList.add('active');
+            if (targetBtn) targetBtn.classList.add('active');
+        }
+
+        // ===== SMOOTH SCROLL TO TAB =====
+        function scrollToTab(tabName) {
+            switchTab(tabName);
+            const element = document.getElementById(tabName);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // ===== BUILD PROJECTS FROM projects.json =====
+        function slugify(str) {
+            return str.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
+
+        let allProjectsFlat = [];
+
+        async function renderProjectsFromData() {
+            const container = document.getElementById('projectsContainer');
+            const filterBar = document.getElementById('filterButtonsContainer');
+            if (!container) return;
+
+            let projects;
+            try {
+                projects = PROJECTS_DATA;
+            } catch (err) {
+                container.innerHTML = '<p>Could not load projects.</p>';
+                return;
+            }
+
+            allProjectsFlat = projects;
+
+            const groups = projects.reduce((acc, p) => {
+                (acc[p.project_type] ??= []).push(p);
+                return acc;
+            }, {});
+
+            container.innerHTML = '';
+
+            Object.entries(groups).forEach(([type, items]) => {
+                const groupSlug = slugify(type);
+
+                // filter button for this project_type
+                const filterBtn = document.createElement('button');
+                filterBtn.className = 'filter-btn';
+                filterBtn.setAttribute('data-filter', groupSlug);
+                filterBtn.textContent = type.toUpperCase();
+                filterBtn.onclick = () => filterProjects(groupSlug, filterBtn);
+                filterBar.appendChild(filterBtn);
+
+                // group wrapper
+                const groupEl = document.createElement('div');
+                groupEl.className = 'project-group';
+                groupEl.setAttribute('data-group', groupSlug);
+                groupEl.innerHTML = `
+                    <div class="group-header">
+                        <h3 class="group-title">${type}</h3>
+                        <button class="view-all-btn" onclick="toggleGroupView('${groupSlug}')">View All</button>
+                    </div>
+                    <div class="projects-scroll-container"></div>
+                `;
+
+                const scrollContainer = groupEl.querySelector('.projects-scroll-container');
+
+                items.forEach(p => {
+                    const flatIndex = allProjectsFlat.indexOf(p);
+                    const tags = (p.tags_list || []).map(t => `<span class="tech-tag">${t}</span>`).join('');
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.setAttribute('data-category', groupSlug);
+                    card.innerHTML = `
+                        <div class="project-image" style="background-image: url('${p.img_link}'); background-size: cover;" onclick="openProjectModal(${flatIndex})"></div>
+                        <div class="project-content">
+                            <span class="project-label" style="cursor:pointer" onclick="openProjectModal(${flatIndex})">${type}</span>
+                            <h3 class="project-title" style="cursor:pointer" onclick="openProjectModal(${flatIndex})">${p.project_name}</h3>
+                            <details class="project-details">
+                                <summary class="project-summary">Description</summary>
+                                <div class="project-desc">${p.description}</div>
+                            </details>
+                            <div class="project-tech">${tags}</div>
+                            <div class="source-btn-container">
+                                <a href="${p.source_link}" target="_blank" class="btn-source">Source</a>
+                            </div>
+                        </div>
+                    `;
+                    scrollContainer.appendChild(card);
+                });
+
+                container.appendChild(groupEl);
+            });
+        }
+
+        // ===== PROJECT DETAIL MODAL =====
+        function openProjectModal(index) {
+            const p = allProjectsFlat[index];
+            if (!p) return;
+
+            document.getElementById('projectModalImg').src = p.img_link;
+            document.getElementById('projectModalImg').alt = p.project_name;
+            document.getElementById('projectModalLabel').textContent = p.project_type;
+            document.getElementById('projectModalTitle').textContent = p.project_name;
+            document.getElementById('projectModalDesc').innerHTML = p.description;
+            document.getElementById('projectModalTags').innerHTML =
+                (p.tags_list || []).map(t => `<span class="tech-tag">${t}</span>`).join('');
+            document.getElementById('projectModalSource').href = p.source_link;
+
+            const modal = document.getElementById('projectModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            history.pushState({ projectModalOpen: true }, '');
+        }
+
+        function closeProjectModal(event) {
+            const modal = document.getElementById('projectModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (history.state && history.state.projectModalOpen) {
+                    history.back();
+                }
+            }
+        }
+
+        // ===== PROJECT FILTERING & SEARCH =====
+        let currentCategory = 'all';
+        const expandedGroups = new Set();
+        let activeExpandedGroup = null;
+
+        function filterProjects(category, buttonEl) {
+            currentCategory = category;
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if(buttonEl) {
+                buttonEl.classList.add('active');
+            }
+
+            applyProjectFilters();
+        }
+
+        function searchProjects() {
+            applyProjectFilters();
+        }
+
+        function toggleGroupView(groupId) {
+            const groupEl = document.querySelector(`.project-group[data-group="${groupId}"]`);
+            const btn = groupEl ? groupEl.querySelector('.view-all-btn') : null;
+            if (!groupEl) return;
+            
+            if (activeExpandedGroup === groupId) {
+                activeExpandedGroup = null;
+                groupEl.classList.remove('expanded');
+                if (btn) btn.textContent = 'View All';
+            } else {
+                if (activeExpandedGroup) {
+                    const prevGroup = document.querySelector(`.project-group[data-group="${activeExpandedGroup}"]`);
+                    if (prevGroup) {
+                        prevGroup.classList.remove('expanded');
+                        const prevBtn = prevGroup.querySelector('.view-all-btn');
+                        if (prevBtn) prevBtn.textContent = 'View All';
+                    }
+                }
+                activeExpandedGroup = groupId;
+                groupEl.classList.add('expanded');
+                if (btn) btn.textContent = 'View Less';
+            }
+            applyProjectFilters();
+        }
+
+        function applyProjectFilters() {
+            const input = document.getElementById('projectSearch');
+            const query = input ? input.value.toLowerCase().trim() : '';
+            const cards = document.querySelectorAll('.project-card');
+            const fallbackMsg = document.getElementById('noProjectsFound');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            const matchingCategories = new Set();
+            cards.forEach(card => {
+                const title = card.querySelector('.project-title')?.textContent.toLowerCase() || '';
+                const label = card.querySelector('.project-label')?.textContent.toLowerCase() || '';
+                const desc = card.querySelector('.project-desc')?.textContent.toLowerCase() || '';
+                const tags = Array.from(card.querySelectorAll('.tech-tag')).map(el => el.textContent.toLowerCase()).join(' ');
+
+                const queryMatch = !query || title.includes(query) || label.includes(query) || desc.includes(query) || tags.includes(query);
+                if (queryMatch) {
+                    matchingCategories.add(card.dataset.category);
+                }
+            });
+
+            buttons.forEach(btn => {
+                const filterVal = btn.getAttribute('data-filter');
+                if (filterVal === 'all') {
+                    btn.style.display = (query && matchingCategories.size === 0) ? 'none' : 'inline-block';
+                } else {
+                    btn.style.display = matchingCategories.has(filterVal) ? 'inline-block' : 'none';
+                }
+            });
+
+            const activeBtn = document.querySelector('.filter-btn.active');
+            if (activeBtn && activeBtn.style.display === 'none') {
+                currentCategory = 'all';
+                buttons.forEach(btn => btn.classList.remove('active'));
+                const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+                if (allBtn) allBtn.classList.add('active');
+            }
+
+            let totalVisibleCount = 0;
+            const groups = document.querySelectorAll('.project-group');
+            
+            groups.forEach(group => {
+                const groupId = group.dataset.group;
+                const groupCards = group.querySelectorAll('.project-card');
+                let matchingCardsInGroup = 0;
+
+                groupCards.forEach(card => {
+                    const categoryMatch = (currentCategory === 'all' || card.dataset.category === currentCategory);
+                    const title = card.querySelector('.project-title')?.textContent.toLowerCase() || '';
+                    const label = card.querySelector('.project-label')?.textContent.toLowerCase() || '';
+                    const desc = card.querySelector('.project-desc')?.textContent.toLowerCase() || '';
+                    const tags = Array.from(card.querySelectorAll('.tech-tag')).map(el => el.textContent.toLowerCase()).join(' ');
+
+                    const queryMatch = !query || title.includes(query) || label.includes(query) || desc.includes(query) || tags.includes(query);
+
+                    if (categoryMatch && queryMatch) {
+                        card.setAttribute('data-matched', 'true');
+                        matchingCardsInGroup++;
+                    } else {
+                        card.removeAttribute('data-matched');
+                        card.classList.add('hidden');
+                        
+                        const detailsElement = card.querySelector('.project-details');
+                        if (detailsElement && detailsElement.hasAttribute('open')) {
+                            detailsElement.removeAttribute('open');
+                        }
+                    }
+                });
+
+                const isExpanded = (activeExpandedGroup === groupId);
+                const forceShowAll = currentCategory !== 'all';
+
+                if (matchingCardsInGroup > 0) {
+                    group.style.display = 'block';
+                    let displayedCount = 0;
+
+                    groupCards.forEach(card => {
+                        if (card.getAttribute('data-matched') === 'true') {
+                            if (isExpanded || forceShowAll || displayedCount < 16) {
+                                card.classList.remove('hidden');
+                                displayedCount++;
+                                totalVisibleCount++;
+                            } else {
+                                card.classList.add('hidden');
+                            }
+                        }
+                    });
+
+                    const viewAllBtn = group.querySelector('.view-all-btn');
+                    if (viewAllBtn) {
+                        if (forceShowAll) {
+                            viewAllBtn.style.display = 'none';
+                        } else if (isExpanded) {
+                            viewAllBtn.style.display = 'inline-block';
+                            viewAllBtn.textContent = 'View Less';
+                        } else if (matchingCardsInGroup > 0) {
+                            viewAllBtn.style.display = 'inline-block';
+                            viewAllBtn.textContent = 'View All';
+                        } else {
+                            viewAllBtn.style.display = 'none';
+                        }
+                    }
+                } else {
+                    group.style.display = 'none';
+                }
+            });
+
+            if (fallbackMsg) {
+                fallbackMsg.style.display = (totalVisibleCount === 0) ? 'block' : 'none';
+            }
+        }
+
+        // ===== LIGHTBOX FUNCTIONS =====
+        let galleryItems = [];
+        let currentLightboxIndex = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function buildGalleryIndex() {
+            galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+        }
+
+        function openLightbox(element) {
+            buildGalleryIndex();
+            const modal = document.getElementById('lightboxModal');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxCounter = document.getElementById('lightboxCounter');
+
+            currentLightboxIndex = galleryItems.indexOf(element);
+
+            const clickedImg = element.querySelector('img');
+            const clickedCaption = element.querySelector('.gallery-caption');
+
+            if (modal && lightboxImg) {
+                lightboxImg.src = clickedImg.src;
+                if (lightboxCaption && clickedCaption) {
+                    lightboxCaption.textContent = clickedCaption.textContent;
+                }
+                if (lightboxCounter) {
+                    lightboxCounter.textContent = (currentLightboxIndex + 1) + ' / ' + galleryItems.length;
+                }
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                history.pushState({ lightboxOpen: true }, '');
+
+                // Show swipe hint and fade it out after 2.5s (mobile only)
+                const hint = document.getElementById('lightboxSwipeHint');
+                if (hint) {
+                    hint.style.opacity = '1';
+                    clearTimeout(window._swipeHintTimer);
+                    window._swipeHintTimer = setTimeout(() => {
+                        hint.style.opacity = '0';
+                    }, 2500);
+                }
+            }
+        }
+
+        function navigateLightbox(direction) {
+            if (galleryItems.length === 0) return;
+            currentLightboxIndex = (currentLightboxIndex + direction + galleryItems.length) % galleryItems.length;
+
+            const item = galleryItems[currentLightboxIndex];
+            const img = item.querySelector('img');
+            const caption = item.querySelector('.gallery-caption');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxCounter = document.getElementById('lightboxCounter');
+
+            if (lightboxImg) {
+                // Fade transition
+                lightboxImg.style.opacity = '0';
+                lightboxImg.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    lightboxImg.src = img.src;
+                    lightboxImg.style.opacity = '1';
+                    lightboxImg.style.transform = 'scale(1)';
+                }, 180);
+            }
+            if (lightboxCaption && caption) lightboxCaption.textContent = caption.textContent;
+            if (lightboxCounter) lightboxCounter.textContent = (currentLightboxIndex + 1) + ' / ' + galleryItems.length;
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (history.state && history.state.lightboxOpen) {
+                    history.back();
+                }
+            }
+        }
+
+        // Handle browser back button
+        window.addEventListener('popstate', (e) => {
+            const modal = document.getElementById('lightboxModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            const pModal = document.getElementById('projectModal');
+            if (pModal && pModal.classList.contains('active')) {
+                pModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Keyboard navigation
+        window.addEventListener('keydown', (e) => {
+            const pModal = document.getElementById('projectModal');
+            if (pModal && pModal.classList.contains('active')) {
+                if (e.key === 'Escape') closeProjectModal();
+                return;
+            }
+            const modal = document.getElementById('lightboxModal');
+            if (!modal || !modal.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        // Mobile swipe support
+        window.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+            const modal = document.getElementById('lightboxModal');
+            if (!modal || !modal.classList.contains('active')) return;
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                navigateLightbox(diff > 0 ? 1 : -1);
+            }
+        }, { passive: true });
+
+        // ===== PLATFORM SEARCH ENGINE ACTION =====
+        function searchPlatforms() {
+            const input = document.getElementById('platformSearch');
+            const filter = input.value.toLowerCase().trim();
+            const tiles = document.querySelectorAll('.link-tile');
+            const fallbackMsg = document.getElementById('noLinksFound');
+            let visibleCount = 0;
+
+            tiles.forEach(tile => {
+                const datasetPlatform = tile.getAttribute('data-platform').toLowerCase();
+                
+                if (datasetPlatform.includes(filter)) {
+                    tile.classList.remove('hidden-link');
+                    visibleCount++;
+                } else {
+                    tile.classList.add('hidden-link');
+                }
+            });
+
+            if (visibleCount === 0) {
+                fallbackMsg.style.display = 'block';
+            } else {
+                fallbackMsg.style.display = 'none';
+            }
+        }
+
+        // ===== INIT =====
+        renderProjectsFromData();
+    </script>
+</body>
+</html>
